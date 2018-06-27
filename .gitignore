@@ -1,0 +1,11 @@
+*.old
+*.bak
+*~
+*.kswp
+*.kate-swp
+*.swp
+*#
+\#*
+linux/
+rockchip-vcodec/
+
