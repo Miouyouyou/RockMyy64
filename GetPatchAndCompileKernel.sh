@@ -38,7 +38,9 @@ export KERNEL_PATCHES="
 0003-drivers-drm-rockchip-Enable-IRQ-on-unbind.patch
 "
 
-export KERNEL_DTS_PATCHES=""
+export KERNEL_DTS_PATCHES="
+0001-ARM64-DTSI-NanoPC-T4.patch
+"
 
 
 export MALI_PATCHES="
@@ -130,11 +132,11 @@ if [ ! -e "PATCHED" ]; then
 	# Download and apply the various kernel and Mali kernel-space driver patches
 	if [ ! -d "../patches" ]; then
 		download_and_apply_patches $KERNEL_PATCHES_DIR_URL $KERNEL_PATCHES
-		#download_and_apply_patches $KERNEL_DTS_PATCHES_DIR_URL $KERNEL_DTS_PATCHES
+		download_and_apply_patches $KERNEL_DTS_PATCHES_DIR_URL $KERNEL_DTS_PATCHES
 		download_and_apply_patches $MALI_PATCHES_DIR_URL $MALI_PATCHES
 	else
 		copy_and_apply_patches ../$KERNEL_PATCHES_DIR $KERNEL_PATCHES
-		#copy_and_apply_patches ../$KERNEL_PATCHES_DTS_DIR $KERNEL_DTS_PATCHES
+		copy_and_apply_patches ../$KERNEL_PATCHES_DTS_DIR $KERNEL_DTS_PATCHES
 		copy_and_apply_patches ../$MALI_PATCHES_DIR $MALI_PATCHES
 	fi
 
@@ -168,14 +170,15 @@ if [ -z ${DONT_INSTALL_IN_TMP+x} ]; then
 	# Kernel compiled
 	# This will just copy the kernel files and libraries in /tmp
 	# This part is only useful if you're cross-compiling the kernel, of course
-	export INSTALL_MOD_PATH=/tmp/RockMyy-Build
+	export INSTALL_MOD_PATH=/tmp/RockMyyX-Build
 	export INSTALL_PATH=$INSTALL_MOD_PATH/boot
 	export INSTALL_HDR_PATH=$INSTALL_MOD_PATH/usr
 	mkdir -p $INSTALL_MOD_PATH $INSTALL_PATH $INSTALL_HDR_PATH
 	make modules_install &&
 	make dtbs_install &&
 	make install &&
-	make INSTALL_HDR_PATH=$INSTALL_HDR_PATH headers_install # This command IGNORES predefined variables
+	make INSTALL_HDR_PATH=$INSTALL_HDR_PATH headers_install && # This command IGNORES predefined variables
+	cp arch/arm64/boot/Image $INSTALL_PATH
 fi
 
 
