@@ -1,0 +1,45 @@
+From ce4e59c133fa46356843cae5f373f1e702faf3fe Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:59:01 +0200
+Subject: [PATCH 10/11] arm64: dtsi: rockchip: rk3399-opp: Add support for 1.5
+ Ghz and 2.0 Ghz
+
+Taken from Armbian.
+
+I'm not into overclocking though, so don't ask me how to overclock
+your NanoPC to get 7% more performances with CPU miners.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi
+index d6f1095ab..30f353c10 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi
+@@ -33,6 +33,10 @@ opp05 {
+ 			opp-hz = /bits/ 64 <1416000000>;
+ 			opp-microvolt = <1125000>;
+ 		};
++		opp06 {
++			opp-hz = /bits/ 64 <1512000000>;
++			opp-microvolt = <1200000>;
++		};
+ 	};
+ 
+ 	cluster1_opp: opp-table1 {
+@@ -72,6 +76,10 @@ opp07 {
+ 			opp-hz = /bits/ 64 <1800000000>;
+ 			opp-microvolt = <1200000>;
+ 		};
++		opp08 {
++			opp-hz = /bits/ 64 <2016000000>;
++			opp-microvolt = <1300000>;
++		};
+ 	};
+ 
+ 	gpu_opp_table: opp-table2 {
+-- 
+2.26.0
+

@@ -1,0 +1,68 @@
+From d2899f46387378a8e0332f87949ee3e31ef908a6 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:54:03 +0200
+Subject: [PATCH 08/11] drivers: mfd: Use syscore to poweroff when using RK808
+ chips
+
+Taken from Armbian.
+
+Original commit message :
+
+    This patch fixes shutdown power off issues on Rock Pi 4 and probably
+    all other boards using RK808 PMIC combined with PSCI.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ drivers/mfd/rk808.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
+index a69a6742e..d03f88bd6 100644
+--- a/drivers/mfd/rk808.c
++++ b/drivers/mfd/rk808.c
+@@ -514,15 +514,24 @@ static void rk8xx_syscore_shutdown(void)
+ 	struct rk808 *rk808 = i2c_get_clientdata(rk808_i2c_client);
+ 	int ret;
+ 
+-	if (system_state == SYSTEM_POWER_OFF &&
+-	    (rk808->variant == RK809_ID || rk808->variant == RK817_ID)) {
+-		ret = regmap_update_bits(rk808->regmap,
+-					 RK817_SYS_CFG(3),
+-					 RK817_SLPPIN_FUNC_MSK,
+-					 SLPPIN_DN_FUN);
+-		if (ret) {
+-			dev_warn(&rk808_i2c_client->dev,
+-				 "Cannot switch to power down function\n");
++	if (system_state == SYSTEM_POWER_OFF) {
++		switch(rk808->variant) {
++			case RK809_ID:
++			case RK817_ID:
++				ret = regmap_update_bits(rk808->regmap,
++							 RK817_SYS_CFG(3),
++							 RK817_SLPPIN_FUNC_MSK,
++							 SLPPIN_DN_FUN);
++				if (ret) {
++					dev_warn(&rk808_i2c_client->dev,
++						 "Cannot switch to power down function\n");
++				}
++				break;
++			case RK808_ID:
++				rk808_device_shutdown();
++				break;
++			default:
++				break;
+ 		}
+ 	}
+ }
+@@ -604,7 +613,7 @@ static int rk808_probe(struct i2c_client *client,
+ 		nr_pre_init_regs = ARRAY_SIZE(rk808_pre_init_reg);
+ 		cells = rk808s;
+ 		nr_cells = ARRAY_SIZE(rk808s);
+-		rk808->pm_pwroff_fn = rk808_device_shutdown;
++		register_syscore_ops(&rk808_syscore_ops);
+ 		break;
+ 	case RK818_ID:
+ 		rk808->regmap_cfg = &rk818_regmap_config;
+-- 
+2.26.0
+

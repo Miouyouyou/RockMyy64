@@ -1,0 +1,65 @@
+From e26b47be8f7f8dfe5a4d7cd01e216e14a4ce1934 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 17:02:07 +0200
+Subject: [PATCH 11/11] arm64: dtsi: rockchip: rk3399: Fine tune the power
+ drawn by the SDMMC
+
+Taken from Armbian.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399.dtsi b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+index cd5415d7e..18587d4d6 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -2293,35 +2293,35 @@ sdio0_int: sdio0-int {
+ 		sdmmc {
+ 			sdmmc_bus1: sdmmc-bus1 {
+ 				rockchip,pins =
+-					<4 RK_PB0 1 &pcfg_pull_up>;
++					<4 RK_PB0 RK_FUNC_1 &pcfg_pull_up_8ma>;
+ 			};
+ 
+ 			sdmmc_bus4: sdmmc-bus4 {
+ 				rockchip,pins =
+-					<4 RK_PB0 1 &pcfg_pull_up>,
+-					<4 RK_PB1 1 &pcfg_pull_up>,
+-					<4 RK_PB2 1 &pcfg_pull_up>,
+-					<4 RK_PB3 1 &pcfg_pull_up>;
++					<4 RK_PB0 RK_FUNC_1 &pcfg_pull_up_8ma>,
++					<4 RK_PB1 RK_FUNC_1 &pcfg_pull_up_8ma>,
++					<4 RK_PB2 RK_FUNC_1 &pcfg_pull_up_8ma>,
++					<4 RK_PB3 RK_FUNC_1 &pcfg_pull_up_8ma>;
+ 			};
+ 
+ 			sdmmc_clk: sdmmc-clk {
+ 				rockchip,pins =
+-					<4 RK_PB4 1 &pcfg_pull_none>;
++					<4 RK_PB4 RK_FUNC_1 &pcfg_pull_none_12ma>;
+ 			};
+ 
+ 			sdmmc_cmd: sdmmc-cmd {
+ 				rockchip,pins =
+-					<4 RK_PB5 1 &pcfg_pull_up>;
++					<4 RK_PB5 RK_FUNC_1 &pcfg_pull_up_8ma>;
+ 			};
+ 
+ 			sdmmc_cd: sdmmc-cd {
+ 				rockchip,pins =
+-					<0 RK_PA7 1 &pcfg_pull_up>;
++					<0 RK_PA7 RK_FUNC_1 &pcfg_pull_up>;
+ 			};
+ 
+ 			sdmmc_wp: sdmmc-wp {
+ 				rockchip,pins =
+-					<0 RK_PB0 1 &pcfg_pull_up>;
++					<0 RK_PB0 RK_FUNC_1 &pcfg_pull_up_8ma>;
+ 			};
+ 		};
+ 
+-- 
+2.26.0
+

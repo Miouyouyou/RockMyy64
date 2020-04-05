@@ -1,0 +1,25 @@
+From 3417bd2f53212f90651b193ad92d47bcd10bd258 Mon Sep 17 00:00:00 2001
+From: Michal Lazo <michal.lazo@memsource.com>
+Date: Mon, 6 Jan 2020 14:52:00 -0800
+Subject: [PATCH 04/11] mali power fix
+
+---
+ arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+index d63faf38c..c280d0ab6 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+@@ -805,3 +805,8 @@ &vopl {
+ &vopl_mmu {
+ 	status = "okay";
+ };
++
++&gpu {
++	mali-supply = <&vdd_gpu>;
++	status = "okay";
++};
+-- 
+2.26.0
+

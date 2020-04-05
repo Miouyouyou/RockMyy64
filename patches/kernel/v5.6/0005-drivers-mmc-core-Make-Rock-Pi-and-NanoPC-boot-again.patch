@@ -1,0 +1,42 @@
+From 4589e9b7cf52de3808f7dfd990c138a0d35113a0 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:23:10 +0200
+Subject: [PATCH 06/11] drivers: mmc: core: Make Rock Pi and NanoPC boot again
+
+Taken from Armbian.
+
+Original commit message :
+
+    This patch is required to boot some Rock Pi 4 and NanoPC T4 units
+    with kernel 5.3+ and is on par with how it is done in Rockchip's BSP."
+
+This just move some initialization routines a bit before checking
+the status of the MMC.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ drivers/mmc/core/mmc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+index de14b5845..8b396cfe8 100644
+--- a/drivers/mmc/core/mmc.c
++++ b/drivers/mmc/core/mmc.c
+@@ -1366,12 +1366,12 @@ static int mmc_select_hs400es(struct mmc_card *card)
+ 	}
+ 
+ 	mmc_set_timing(host, MMC_TIMING_MMC_HS);
++	mmc_set_clock(host, card->ext_csd.hs_max_dtr);
++
+ 	err = mmc_switch_status(card);
+ 	if (err)
+ 		goto out_err;
+ 
+-	mmc_set_clock(host, card->ext_csd.hs_max_dtr);
+-
+ 	/* Switch card to DDR with strobe bit */
+ 	val = EXT_CSD_DDR_BUS_WIDTH_8 | EXT_CSD_BUS_WIDTH_STROBE;
+ 	err = mmc_switch(card, EXT_CSD_CMD_SET_NORMAL,
+-- 
+2.26.0
+

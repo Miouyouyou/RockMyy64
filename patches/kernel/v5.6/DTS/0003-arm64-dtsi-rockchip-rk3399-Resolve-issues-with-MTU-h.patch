@@ -1,0 +1,37 @@
+From 9bb0d7b4b14dff94c5278937490c2ff45983a4c0 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:55:55 +0200
+Subject: [PATCH 09/11] arm64: dtsi: rockchip: rk3399: Resolve issues with MTU
+ higher than 1498
+
+Taken from Armbian.
+
+Original commit message :
+
+    Default Programmable Buffer Length for TX in rk3399's gmac is not suitable
+    for MTUs higher than 1498. The easiest solution would be to disable
+    TX offloading but it is not ideal as it disables hardware checksumming.
+
+    This patch sets txpbl to 0x4 which is good for the most popular MTU
+    value of 1500.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399.dtsi b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+index 33cc21fcf..cd5415d7e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -288,6 +288,7 @@ gmac: ethernet@fe300000 {
+ 		resets = <&cru SRST_A_GMAC>;
+ 		reset-names = "stmmaceth";
+ 		rockchip,grf = <&grf>;
++		snps,txpbl = <0x4>;
+ 		status = "disabled";
+ 	};
+ 
+-- 
+2.26.0
+

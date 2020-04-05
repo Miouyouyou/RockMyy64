@@ -1,0 +1,32 @@
+From bcb7487e379708a841b06bcf012db8872791802c Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:51:57 +0200
+Subject: [PATCH 07/11] arm64: dts: rk3399-nanopc-t4: Enable i2c7 and uart4
+
+Again, I can't really test that.
+So if you can't use them, file an issue.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-nanopc-t4.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopc-t4.dts b/arch/arm64/boot/dts/rockchip/rk3399-nanopc-t4.dts
+index e0d75617b..55cd89541 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-nanopc-t4.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopc-t4.dts
+@@ -134,3 +134,11 @@ &vbus_typec {
+ 	gpios = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
+ 	vin-supply = <&vcc5v0_sys>;
+ };
++
++&i2c7 {
++	status = "okay";
++};
++
++&uart4 {
++	status = "okay";
++};
+-- 
+2.26.0
+

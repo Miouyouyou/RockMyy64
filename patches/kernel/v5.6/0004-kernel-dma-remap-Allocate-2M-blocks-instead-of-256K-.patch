@@ -1,0 +1,32 @@
+From 0e8c0c8ff51c87442ccc75c85e32017ec47b3929 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Sun, 5 Apr 2020 16:21:01 +0200
+Subject: [PATCH 05/11] kernel: dma: remap: Allocate 2M blocks instead of 256K
+ blocks
+
+Taken from Armbian.
+
+I guess it lowers the memory allocation pressure for large
+DMA transfers ?
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ kernel/dma/remap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/dma/remap.c b/kernel/dma/remap.c
+index d14cbc839..de3b920a7 100644
+--- a/kernel/dma/remap.c
++++ b/kernel/dma/remap.c
+@@ -101,7 +101,7 @@ void dma_common_free_remap(void *cpu_addr, size_t size)
+ #ifdef CONFIG_DMA_DIRECT_REMAP
+ static struct gen_pool *atomic_pool __ro_after_init;
+ 
+-#define DEFAULT_DMA_COHERENT_POOL_SIZE  SZ_256K
++#define DEFAULT_DMA_COHERENT_POOL_SIZE	SZ_2M
+ static size_t atomic_pool_size __initdata = DEFAULT_DMA_COHERENT_POOL_SIZE;
+ 
+ static int __init early_coherent_pool(char *p)
+-- 
+2.26.0
+
