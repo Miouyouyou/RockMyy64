@@ -1,0 +1,40 @@
+From d3562e9f3893f9ad5248f073f33951a47d48a6e1 Mon Sep 17 00:00:00 2001
+From: "Miouyouyou (Myy)" <myy@miouyouyou.fr>
+Date: Mon, 6 Apr 2020 16:31:52 +0200
+Subject: [PATCH] include: media: hevc-ctrls: Recopy of jernejsk modifications
+
+Original modification from : @jernejsk
+
+As always, if that breaks something, it's on me.
+
+Signed-off-by: Miouyouyou (Myy) <myy@miouyouyou.fr>
+---
+ include/media/hevc-ctrls.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/include/media/hevc-ctrls.h b/include/media/hevc-ctrls.h
+index 3e2e32098..d1b094c8a 100644
+--- a/include/media/hevc-ctrls.h
++++ b/include/media/hevc-ctrls.h
+@@ -169,6 +169,7 @@ struct v4l2_ctrl_hevc_slice_params {
+ 
+ 	/* ISO/IEC 23008-2, ITU-T Rec. H.265: General slice segment header */
+ 	__u32	slice_segment_addr;
++	__u32	num_entry_point_offsets;
+ 
+ 	/* ISO/IEC 23008-2, ITU-T Rec. H.265: NAL unit header */
+ 	__u8	nal_unit_type;
+@@ -203,7 +204,9 @@ struct v4l2_ctrl_hevc_slice_params {
+ 	__u8	num_rps_poc_st_curr_after;
+ 	__u8	num_rps_poc_lt_curr;
+ 
+-	__u8	padding[5];
++	__u8	padding;
++
++	__u32	entry_point_offset_minus1[256];
+ 
+ 	/* ISO/IEC 23008-2, ITU-T Rec. H.265: General slice segment header */
+ 	struct v4l2_hevc_dpb_entry dpb[V4L2_HEVC_DPB_ENTRIES_NUM_MAX];
+-- 
+2.26.0
+

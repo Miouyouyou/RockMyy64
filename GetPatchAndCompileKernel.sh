@@ -87,6 +87,7 @@ export KERNEL_VPU_PATCHES="
 0006-WIP-media-hantro-g1-mpeg2-src_fmt.patch
 0007-WIP-media-hantro-vp8-src_fmt.patch
 0008-media-H264-support-for-Hantro-G1-and-RK3399.patch
+0009-include-media-hevc-ctrls-Recopy-of-jernejsk-modifica.patch
 "
 
 #0003-RFC-media-uapi-h264-Add-DPB-entry-field-reference-fl.patch
