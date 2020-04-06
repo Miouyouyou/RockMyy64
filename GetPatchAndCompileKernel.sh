@@ -89,6 +89,13 @@ export KERNEL_VPU_PATCHES="
 0008-media-H264-support-for-Hantro-G1-and-RK3399.patch
 "
 
+#0003-RFC-media-uapi-h264-Add-DPB-entry-field-reference-fl.patch
+#0004-RFC-media-hantro-Fix-H264-decoding-of-field-encoded-.patch
+#0005-WIP-media-hantro-rk3399-mpeg2-src_fmt.patch
+#0006-WIP-media-hantro-g1-mpeg2-src_fmt.patch
+#0007-WIP-media-hantro-vp8-src_fmt.patch
+#0008-media-H264-support-for-Hantro-G1-and-RK3399.patch
+
 export KERNEL_DOCUMENTATION_PATCHES="
 "
 
