@@ -1,0 +1,14 @@
+version: '2.4'
+services:
+  builder:
+    image: "rockmyy64-builder"
+    build:
+      context: .
+      network: host
+    environment:
+      CROSS_COMPILE: aarch64-linux-gnu-
+    volumes:
+    - "./build:/tmp/RockMyyX-Build"
+    - "./:/usr/src"
+
+

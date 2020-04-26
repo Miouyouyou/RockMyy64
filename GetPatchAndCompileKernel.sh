@@ -1,5 +1,9 @@
 export ARCH=arm64
-export CROSS_COMPILE=aarch64-linux-gnu-
+
+if [ -z ${CROSS_COMPILE+x} ]; then
+	export CROSS_COMPILE=aarch64-linux-gnu-
+fi
+
 
 export KERNEL_GIT_URL='git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git'
 
